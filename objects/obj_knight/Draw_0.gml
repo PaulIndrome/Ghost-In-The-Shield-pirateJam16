@@ -10,8 +10,8 @@ draw_set_color(c_aqua);
 
 draw_set_color(c_black);
 
-draw_text(x, y, string(num));
+//draw_text(x, y, string(num));
 
-draw_circle(mid_x, mid_y, direction_correction_radius, true);
+draw_circle(room_mid_x(), room_mid_y(), direction_correction_radius, true);
 
 draw_set_color(c_white);

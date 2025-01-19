@@ -20,7 +20,7 @@
   "option_html5_loadingbar":"use_default",
   "option_html5_localrunalert":true,
   "option_html5_outputdebugtoconsole":true,
-  "option_html5_outputname":"youaretheshield.htm",
+  "option_html5_outputname":"index.html",
   "option_html5_scale":0,
   "option_html5_splash_png":"${base_options_dir}/html5/splash.png",
   "option_html5_texture_page":"2048x2048",

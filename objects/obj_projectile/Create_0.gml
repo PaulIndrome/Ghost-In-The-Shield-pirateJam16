@@ -1,1 +1,1 @@
-speed = 4;
+event_inherited();

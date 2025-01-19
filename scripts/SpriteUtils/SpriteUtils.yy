@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"SpriteUtils",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"SpriteUtils",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
