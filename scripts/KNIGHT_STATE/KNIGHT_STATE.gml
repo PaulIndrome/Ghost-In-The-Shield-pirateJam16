@@ -1,0 +1,8 @@
+enum KNIGHT_STATE {
+	INIT,
+	LURCH,
+	PRECHARGE,
+	CHARGE,
+	DEAD,
+	DEBUG,
+}

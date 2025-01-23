@@ -2,10 +2,19 @@ global.floods = [];
 
 array_push(global.floods, new EnemyFlood([
 	new EnemyWave([
-		new EnemyGroup(obj_demon_blue, 24, 0.25),
-		new EnemyGroup(obj_demon_red, 8, 1),
+		new EnemyGroup(obj_demon_blue, 12, 0.25),
+		new EnemyGroup(obj_demon_red, 4, 1),
 	]) // wave
 ])); // flood 
+
+///@param {Asset.GMObject} _obj
+function spawn_enemy(_obj){
+	var _random_dir = choose(random_range(-60, 60), random_range(120, 240));
+	var _x_offset = lengthdir_x(room_width * 0.5, _random_dir);
+	var _y_offset = lengthdir_y(room_height, _random_dir);
+
+	instance_create_layer(room_mid_x() + _x_offset, room_mid_y() + _y_offset, "Instances", _obj);
+}
 
 ///@param {Array<Struct.EnemyWave>} _waves
 function EnemyFlood(_waves) constructor {

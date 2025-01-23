@@ -1,2 +1,4 @@
-/// @description Insert description here
-// You can write your code in this editor
+/// @description reset to lurch
+
+knight_state = KNIGHT_STATE.LURCH;
+obj_shield.image_blend = c_white;

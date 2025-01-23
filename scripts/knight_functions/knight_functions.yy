@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"knight_functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"knight_functions",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

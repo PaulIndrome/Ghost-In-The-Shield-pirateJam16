@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"KNIGHT_STATE",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"KNIGHT_STATE",
+  "parent":{
+    "name":"enums",
+    "path":"folders/Scripts/enums.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

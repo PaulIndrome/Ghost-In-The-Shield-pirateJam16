@@ -7,17 +7,12 @@
   ],
   "managed":true,
   "name":"obj_projectile",
-  "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_enemy_base","path":"objects/obj_enemy_base/obj_enemy_base.yy",},"propertyId":{"name":"move_speed_base_min","path":"objects/obj_enemy_base/obj_enemy_base.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"2",},
-  ],
+  "overriddenProperties":[],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",
   },
-  "parentObjectId":{
-    "name":"obj_enemy_base",
-    "path":"objects/obj_enemy_base/obj_enemy_base.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

@@ -1,24 +1,30 @@
 //Collision event of enemy parent with enemy parent
 // code taken from: https://forum.gamemaker.io/index.php?threads/prevent-enemy-overlap.106604/post-642419
-var dir = direction;
-var len = 1;
 
-if(blocked){
-    exit;
-} else if(other.blocked) {
+if(enemy_state == ENEMY_STATE.SHOVED || enemy_state == ENEMY_STATE.BUMPED || other.enemy_state == ENEMY_STATE.BUMPED){
+	exit;
+} 
+
+if(other.enemy_state == ENEMY_STATE.SHOVED) {
     var _dir_other = other.direction;
 	var _dir_to_other = point_direction(x, y, other.x, other.y);
 	var _diff = angle_difference(_dir_other, _dir_to_other);
 	
-	dir = _dir_other - sign(_diff) * 90;
-	len = lerp(8, 0, point_distance(x,y,other.x,other.y) / max(abs(sprite_width), abs(sprite_height)));
-} else {
-    dir = point_direction(x, y, other.x, other.y);
-	len = lerp(1, 0, point_distance(x,y,other.x,other.y) / max(abs(sprite_width), abs(sprite_height)));
+	var _dir  = _dir_other - sign(_diff) * random_range(30, 60);
+	var _bump_str = (1 - other.shove_progress) * 48;
+	var _bump_height = (1 - other.shove_progress) * 36;
 	
-	other.x += lengthdir_x(len,dir);
-	other.y += lengthdir_y(len,dir);
+	enemy_shove(_bump_str, _dir, 0.5, ENEMY_STATE.BUMPED, _bump_height);
+	exit;
+} else {
+    var _dir = point_direction(x, y, other.x, other.y);
+	var _len = lerp(1, 0, point_distance(x, y, other.x, other.y) / max(abs(sprite_width), abs(sprite_height)));
+	
+	x += lengthdir_x(_len, _dir + 180 + (random(10) * evade_bias) );
+	y += lengthdir_y(_len, _dir + 180 + (random(10) * evade_bias) );
+	
+	other.x += lengthdir_x(_len, _dir + (random(10) * other.evade_bias) );
+	other.y += lengthdir_y(_len, _dir + (random(10) * other.evade_bias) );
 }
 
-x += lengthdir_x(len, dir + 160 + (random(20) * evade_bias) );
-y += lengthdir_y(len, dir + 160 + (random(20) * evade_bias) );
+

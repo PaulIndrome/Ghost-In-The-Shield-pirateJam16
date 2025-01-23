@@ -1,0 +1,10 @@
+enum ENEMY_STATE {
+	IDLE,
+	WALK,
+	
+	SHOVED,
+	BUMPED,
+	
+	DYING,
+	DEAD,
+}
