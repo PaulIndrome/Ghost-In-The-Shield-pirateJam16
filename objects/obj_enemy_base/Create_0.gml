@@ -1,4 +1,4 @@
-speed = random_range(move_speed_base_min, move_speed_base_max);
+reset_speed();
 evade_bias = choose(-1, 1);
 enemy_state = ENEMY_STATE.WALK;
 
@@ -15,15 +15,22 @@ shove_start_y = 0;
 shove_end_x = 0;
 shove_end_y = 0;
 
-dir_sprite_mod = function() { return sprite_get_number(sprite_index) / 4; }
-dir_sprite_offset = function() { 
-	var _quadrant = (direction + 315) % 360; // + 315 is equivalent to -45 but modulo-able
-	
-	var _offset_idx = DIR_OFFSET_INDEX.RIGHT
-	
-	if(_quadrant <= 90) _offset_idx = DIR_OFFSET_INDEX.UP
-	else if(_quadrant <= 180) _offset_idx = DIR_OFFSET_INDEX.LEFT;
-	else if(_quadrant <= 270) _offset_idx =  DIR_OFFSET_INDEX.DOWN;
-	
-	return _offset_idx;
+last_quadrant = direction_quadrant();
+
+sprite_update = function(){
+	sprite_index = global.sprite_sets[? object_index][@ enemy_state][last_quadrant];
 }
+
+quadrant_update = function(){
+	var _quadrant = direction_quadrant();
+	
+	if(_quadrant == last_quadrant) exit;
+	
+	last_quadrant = _quadrant;
+	
+	sprite_update();
+}
+
+sprite_update();
+
+

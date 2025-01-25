@@ -10,6 +10,5 @@ if(_time >= next_spawn_time){
 }
 
 if(current_flood.remaining <= 0){
-    current_flood.reset();
-	next_spawn_time = current_flood.next_spawn_time();
+    start_flood(current_flood);
 }

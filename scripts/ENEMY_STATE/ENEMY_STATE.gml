@@ -7,4 +7,10 @@ enum ENEMY_STATE {
 	
 	DYING,
 	DEAD,
+	
+	ATTACK,
+	
+	SLOWED,
+	
+	_LENGTH,
 }

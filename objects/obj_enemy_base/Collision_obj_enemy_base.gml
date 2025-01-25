@@ -1,9 +1,13 @@
 //Collision event of enemy parent with enemy parent
 // code taken from: https://forum.gamemaker.io/index.php?threads/prevent-enemy-overlap.106604/post-642419
 
-if(enemy_state == ENEMY_STATE.SHOVED || enemy_state == ENEMY_STATE.BUMPED || other.enemy_state == ENEMY_STATE.BUMPED){
+if(enemy_state == ENEMY_STATE.SHOVED || enemy_state == ENEMY_STATE.BUMPED || enemy_state == ENEMY_STATE.ATTACK){
 	exit;
-} 
+}
+
+if(other.enemy_state == ENEMY_STATE.BUMPED || other.enemy_state == ENEMY_STATE.ATTACK){
+	exit;
+}
 
 if(other.enemy_state == ENEMY_STATE.SHOVED) {
     var _dir_other = other.direction;

@@ -2,6 +2,9 @@ knight_state = KNIGHT_STATE.LURCH;
 knight_debug_move_speed = 2;
 
 charge_duration_s = 10;
+charge_required_hits = 20;
+charge_end_enemy_num_min = 5;
+hit_count = 0;
 
 random_dir_target = 0;
 random_dir_change_interval = 1;

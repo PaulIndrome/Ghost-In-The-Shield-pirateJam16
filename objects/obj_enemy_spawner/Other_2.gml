@@ -1,1 +1,1 @@
-bonk_counter = 0;
+bonk_count = 0;

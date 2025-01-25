@@ -1,4 +1,5 @@
 if(instance_exists(obj_knight) == false) exit;
+if(obj_knight.knight_state == KNIGHT_STATE.DEAD) exit;
 
 var _mouse_x = mouse_x;
 var _mouse_y = mouse_y;

@@ -1,12 +1,15 @@
-if(enemy_state == ENEMY_STATE.WALK) {
-    image_index = dir_sprite_offset() + (image_index % dir_sprite_mod());
-}
-
-//if(enemy_state == ENEMY_STATE.BUMPED) {
-//    var _x = x + lengthdir_x(6, direction);
-//	var _y = y + lengthdir_y(6, direction);
-
-//	draw_line_color(x, y, _x, _y, image_blend, image_blend);
-//}
-
 draw_self();
+
+// draw quadrants
+	//var _len = 128;
+	//var _offset = 45;
+	//var _step = 90;
+	//var _i = 0;
+	//repeat(2){
+	//	var _xdiff = lengthdir_x(_len, _offset + _i * _step);
+	//	var _ydiff = lengthdir_y(_len, _offset + _i * _step);
+	//	draw_line(x -_xdiff, y - _ydiff, x + _xdiff, y + _ydiff);
+	//	_i++;
+	//}
+
+	//draw_circle(x, y, 128, true);

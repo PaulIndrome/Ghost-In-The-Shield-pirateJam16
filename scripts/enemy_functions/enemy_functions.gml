@@ -31,3 +31,71 @@ global.enemy_state_map = ds_map_create();
 function enemy_can_enter_state(_state){
     return global.enemy_state_grid[@ enemy_state][@ _state];
 }
+
+///@self obj_enemy_base
+function reset_speed(){
+	enemy_state = ENEMY_STATE.WALK;
+	speed = random_range(move_speed_base_min, move_speed_base_max);
+	image_speed = 1;
+}
+
+function reduce_speed(_factor){
+	enemy_state = ENEMY_STATE.SLOWED;
+	speed *= _factor;
+	image_speed *= _factor;
+}
+
+///@self obj_enemy_base
+function enemy_attack(_killing_blow){
+	if(_killing_blow){
+		with(obj_enemy_spawner){
+			stop_spawn();
+			current_flood = undefined;
+		}
+		
+		with(obj_knight){
+			knight_state = KNIGHT_STATE.DEAD;
+			speed = 0;
+		}
+	
+		with(obj_shield){
+			visible = false;
+			x = 0;
+			y = 0;
+		}
+	
+		var _self = id;
+		with(obj_enemy_base){
+			if(id == _self) continue;
+		
+			alarm_set(0, -1);
+			reset_speed();
+			reduce_speed(0.1);
+		}
+	}
+	
+	enemy_state = ENEMY_STATE.ATTACK;
+	sprite_update();
+	image_index = 0;
+	speed = 0;
+	depth -= 100;
+	
+	switch(direction_quadrant()){
+		case QUADRANT.RIGHT:
+			x = obj_knight.x - sprite_width / 2;
+			y = obj_knight.y;
+			break;
+		case QUADRANT.TOP:
+			x = obj_knight.x;
+			y = obj_knight.y + sprite_height / 2;
+			break;
+		case QUADRANT.LEFT:
+			x = obj_knight.x + sprite_width / 2;
+			y = obj_knight.y;
+			break;
+		case QUADRANT.BOTTOM:
+			x = obj_knight.x;
+			y = obj_knight.y - sprite_height / 2;
+			break;
+	}
+}

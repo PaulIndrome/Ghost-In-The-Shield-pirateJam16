@@ -4,6 +4,8 @@ function knight_precharge(){
 	
 	knight_state = KNIGHT_STATE.PRECHARGE;
 	
+	speed = 0;
+	
     var _x = x;
 	var _y = y;
 	with(obj_enemy_base){
