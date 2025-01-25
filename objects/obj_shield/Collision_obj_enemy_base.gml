@@ -5,6 +5,11 @@ if(obj_knight.knight_state == KNIGHT_STATE.CHARGE){
     case ENEMY_STATE.WALK:
     case ENEMY_STATE.IDLE:
 		break;
+	case ENEMY_STATE.BUMPED:
+	case ENEMY_STATE.SHOVED:
+		if(other.shove_progress < 0.5) exit;
+		break;
+		
 	default:	
 		exit;
 	}

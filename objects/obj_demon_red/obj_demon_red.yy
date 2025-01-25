@@ -6,7 +6,9 @@
   ],
   "managed":true,
   "name":"obj_demon_red",
-  "overriddenProperties":[],
+  "overriddenProperties":[
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_enemy_base","path":"objects/obj_enemy_base/obj_enemy_base.yy",},"propertyId":{"name":"move_speed_base_max","path":"objects/obj_enemy_base/obj_enemy_base.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"1.25",},
+  ],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",

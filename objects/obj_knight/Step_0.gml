@@ -1,12 +1,12 @@
 switch(knight_state){
     case KNIGHT_STATE.LURCH:
-		lerp_towards_random_dir_target(2);
+		lerp_towards_random_dir_target(1.5);
 		speed = 0.5 + get_fluctuation(random_speed_factor) * 0.7
 		image_angle = direction + get_fluctuation() * 45;
 	break
 	
 	case KNIGHT_STATE.CHARGE:
-		lerp_towards_random_dir_target(1);
+		lerp_towards_random_dir_target(2);
 		image_angle = direction;
 		speed = 1;
 	break;
