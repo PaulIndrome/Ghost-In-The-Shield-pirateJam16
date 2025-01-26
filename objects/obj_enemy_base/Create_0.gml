@@ -1,4 +1,3 @@
-reset_speed();
 evade_bias = choose(-1, 1);
 enemy_state = ENEMY_STATE.WALK;
 
@@ -14,6 +13,7 @@ shove_start_x = 0;
 shove_start_y = 0;
 shove_end_x = 0;
 shove_end_y = 0;
+shove_count = 0;
 
 last_quadrant = direction_quadrant();
 
@@ -32,5 +32,6 @@ quadrant_update = function(){
 }
 
 sprite_update();
+enemy_reset_speed();
 
 

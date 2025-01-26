@@ -1,12 +1,3 @@
-global.floods = [];
-
-array_push(global.floods, new EnemyFlood([
-	new EnemyWave([
-		new EnemyGroup(obj_demon_blue, 12, 0.25),
-		new EnemyGroup(obj_demon_red, 4, 1),
-	]) // wave
-])); // flood 
-
 ///@param {Asset.GMObject} _obj
 function spawn_enemy(_obj){
 	var _random_dir = choose(random_range(-60, 60), random_range(120, 240));
@@ -46,15 +37,20 @@ function EnemyFlood(_waves) constructor {
 	static spawn_done = function(){ return current_wave >= array_length(waves); }
 	
 	static spawn = function(){
-	    if(current_wave >= array_length(waves)) return -1;
+		// attempt to spawn something in the current wave
+		var _time = waves[current_wave].spawn();
 		
-		if(waves[current_wave].spawn_done()){
+		// if current wave is giving a negative time for the next run through, go to next wave and try again
+		if(_time < 0){
 		    current_wave++;
 		}
 		
-		if(spawn_done()) return -1;
+		// if current wave marks flood as done, stop spawning
+		var _flood_done = spawn_done();
+		if(_flood_done) return -1;
 		
-		return waves[current_wave].spawn();
+		// otherwise attempt a spawn in next wave
+		return _time < 0 ? waves[current_wave].spawn() : _time;
 	}
 	
 	static next_spawn_time = function(_current_time = get_timer_s()){
@@ -62,6 +58,21 @@ function EnemyFlood(_waves) constructor {
 		
 		return waves[current_wave].next_spawn_time(_current_time);
 	}
+	
+	static add_enemy = function(_obj, _count, _wave, _interval){
+		show_debug_message($"adding {_count}x {object_get_name(_obj)} to wave {_wave}");
+		if(_wave >= array_length(waves)) exit;
+		
+		_wave = waves[@ _wave];
+		var _group_index = _wave.find_group(_obj);
+		
+		if(_group_index < 0){
+			array_push(_wave.enemy_groups, new EnemyGroup(_obj, _count, _interval));
+		} else {
+			_wave.enemy_groups[@ _group_index].spawn_count += _count;
+		}
+	}
+
 }
 
 ///@param {Array<Struct.EnemyGroup>} _groups groups
@@ -72,21 +83,39 @@ function EnemyWave(_groups) constructor {
 	static spawn_done = function() { return current_group >= array_length(enemy_groups); }
 	
 	static spawn = function(){
-		if(current_group >= array_length(enemy_groups)) return -1;
-		
-		if(enemy_groups[current_group].spawn_done()){
+		var _group_done = enemy_groups[current_group].spawn_done();
+		if(_group_done){
 			current_group++;
 		}
 		
-		if(spawn_done()) return -1;
+		var _wave_done = spawn_done();
+		if(_wave_done) {
+			with(obj_enemy_spawner){
+				wave_count++;
+			}
+			
+			return -1;
+		}
 		
-		return enemy_groups[current_group].spawn();
+		var _time = enemy_groups[current_group].spawn();
+		
+		return _time;
 	}
 	
 	static next_spawn_time = function(_current_time){
 		if(spawn_done()) return -1;
 		
 		return enemy_groups[current_group].next_spawn_time(_current_time);
+	}
+	
+	static find_group = function(_obj){
+		var _g = 0;
+		repeat(array_length(enemy_groups)){
+			if(enemy_groups[@ _g].spawn_object == _obj) return _g;
+			_g++;
+		}
+		
+		return -1;
 	}
 }
 
@@ -100,20 +129,17 @@ function EnemyGroup(_obj, _count, _interval) constructor {
 	static spawn_done = function() { return count_spawned >= spawn_count; }
 	
 	static spawn = function(){
-	    if(count_spawned >= spawn_count) return -1;
+		var _count_done = spawn_done();
+		if(_count_done) return -1;
+		
 		var _obj = spawn_object;
 		
-		with(obj_enemy_spawner){
-		    spawn_enemy(_obj);
-		}
+		spawn_enemy(_obj);
 		
 		count_spawned++;
 		
 		var _time = get_timer_s();
 		var _next_spawn_time = _time + spawn_interval;
-		//show_debug_message($"count: {count_spawned} | next_spawn_time: {_next_spawn_time}");
-		
-		
 		return _next_spawn_time;
 	}
 	

@@ -5,10 +5,8 @@ if(_time >= next_spawn_time){
     while(next_spawn_time > 0 && _time >= next_spawn_time){
 	    next_spawn_time = current_flood.spawn();
 	}
-	
-	if(alarm_get(11) < 0) alarm_set(11, remaining_check_step_interval);
 }
 
-if(current_flood.remaining <= 0){
-    start_flood(current_flood);
+if(instance_number(obj_enemy_base) < 1 && next_spawn_time < 0){
+	start_flood(current_flood);
 }

@@ -9,6 +9,10 @@ function enemy_shove(_distance, _dir, _duration_s, _state = ENEMY_STATE.SHOVED, 
 	shove_end_x = x + lengthdir_x(_distance, _dir);
 	shove_end_y = y + lengthdir_y(_distance, _dir);
 	
+	if(_state == ENEMY_STATE.SHOVED){
+		shove_count++;
+	}
+	
 	alarm[0] = shove_duration_frames;
 	direction = _dir;
 	speed = 0;
@@ -33,13 +37,14 @@ function enemy_can_enter_state(_state){
 }
 
 ///@self obj_enemy_base
-function reset_speed(){
+function enemy_reset_speed(){
 	enemy_state = ENEMY_STATE.WALK;
 	speed = random_range(move_speed_base_min, move_speed_base_max);
+	speed += shove_count * 0.2;
 	image_speed = 1;
 }
 
-function reduce_speed(_factor){
+function enemy_reduce_speed(_factor){
 	enemy_state = ENEMY_STATE.SLOWED;
 	speed *= _factor;
 	image_speed *= _factor;
@@ -58,19 +63,19 @@ function enemy_attack(_killing_blow){
 			speed = 0;
 		}
 	
-		with(obj_shield){
-			visible = false;
-			x = 0;
-			y = 0;
-		}
+		//with(obj_shield){
+		//	visible = false;
+		//	x = 0;
+		//	y = 0;
+		//}
 	
 		var _self = id;
 		with(obj_enemy_base){
 			if(id == _self) continue;
 		
 			alarm_set(0, -1);
-			reset_speed();
-			reduce_speed(0.1);
+			enemy_reset_speed();
+			enemy_reduce_speed(0.1);
 		}
 	}
 	
