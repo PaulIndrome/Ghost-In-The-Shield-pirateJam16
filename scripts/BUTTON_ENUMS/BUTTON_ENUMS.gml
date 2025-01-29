@@ -1,0 +1,9 @@
+enum BUTTON_STATE
+{
+    NORMAL, // unhovered
+	HOVERED,
+	MOUSE_DOWN,
+	CLICKED,
+	DISABLED,
+	ENABLE,
+}

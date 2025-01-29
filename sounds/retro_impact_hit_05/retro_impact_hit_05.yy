@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"retro_impact_hit_05",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.335011,
+  "name":"retro_impact_hit_05",
+  "parent":{
+    "name":"Shield",
+    "path":"folders/Sounds/Shield.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"retro_impact_hit_05.wav",
+  "type":0,
+  "volume":0.4,
+}

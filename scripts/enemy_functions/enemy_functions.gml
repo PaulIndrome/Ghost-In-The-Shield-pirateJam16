@@ -1,5 +1,7 @@
 ///@self obj_enemy_base
 function enemy_shove(_distance, _dir, _duration_s, _state = ENEMY_STATE.SHOVED, _height = 0){
+	// SOUNDTODO shove
+	
 	enemy_state = _state;
 	shove_duration_frames = _duration_s * game_get_speed(gamespeed_fps);
 	shove_arc_height = _height;
@@ -10,7 +12,12 @@ function enemy_shove(_distance, _dir, _duration_s, _state = ENEMY_STATE.SHOVED, 
 	shove_end_y = y + lengthdir_y(_distance, _dir);
 	
 	if(_state == ENEMY_STATE.SHOVED){
+		sfx_play_simple([snd_metal_punch, snd_metal_punch_b]);
+		sfx_play_simple([retro_impact_hit_04, retro_impact_hit_05, retro_impact_hit_06]);
 		shove_count++;
+	} else {
+		sfx_play_simple([kick_soft_jab_impact_01, kick_soft_jab_impact_02]);
+		sfx_play_simple([snd_retro_damage_hurt_ouch_20, snd_retro_damage_hurt_ouch_23]);
 	}
 	
 	alarm[0] = shove_duration_frames;
@@ -59,6 +66,8 @@ function enemy_attack(_killing_blow){
 		}
 		
 		with(obj_knight){
+			// SOUNDTODO dead knight
+			alarm_set(1, -1);
 			knight_state = KNIGHT_STATE.DEAD;
 			speed = 0;
 		}

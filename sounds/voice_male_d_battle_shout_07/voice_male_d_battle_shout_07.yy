@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"voice_male_d_battle_shout_07",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":1.642604,
+  "name":"voice_male_d_battle_shout_07",
+  "parent":{
+    "name":"Knight",
+    "path":"folders/Sounds/Knight.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"voice_male_d_battle_shout_07.wav",
+  "type":0,
+  "volume":0.3,
+}

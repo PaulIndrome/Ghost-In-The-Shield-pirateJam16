@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"snd_metal_punch_b",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":1.486077,
+  "name":"snd_metal_punch_b",
+  "parent":{
+    "name":"Shield",
+    "path":"folders/Sounds/Shield.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_metal_punch_b.wav",
+  "type":0,
+  "volume":0.2,
+}

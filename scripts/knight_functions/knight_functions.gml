@@ -1,6 +1,10 @@
+///@self obj_knight
 function knight_precharge(){
 	//if(knight_state == KNIGHT_STATE.CHARGE) exit;
 	if(knight_state == KNIGHT_STATE.PRECHARGE) exit;
+	
+	// SOUNDTODO
+	sfx_play_simple([voice_male_d_battle_shout_01, voice_male_d_battle_shout_04, voice_male_d_battle_shout_07]);
 	
 	knight_state = KNIGHT_STATE.PRECHARGE;
 	
@@ -22,6 +26,7 @@ function knight_precharge(){
 	call_later(1, time_source_units_seconds, method(id, function(){
 		obj_shield.image_blend = c_orange;
 		knight_state = KNIGHT_STATE.CHARGE; 
+		alarm_set(1, -1);
 		alarm_set(0, charge_duration_s * game_get_speed(gamespeed_fps));
 	}));
 	

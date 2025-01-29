@@ -7,6 +7,9 @@ wave_count = 0;
 
 threshold_minimum_enemies = 5;
 
+extra_spawn_count = 0;
+alarm_set(0, 10 * GAMESPEED_FPS);
+
 ///@param {Struct.EnemyFlood} _flood
 function start_flood(_flood) {
 	flood_count++;

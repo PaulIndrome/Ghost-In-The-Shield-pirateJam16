@@ -1,3 +1,5 @@
+randomise();
+
 knight_state = KNIGHT_STATE.LURCH;
 knight_debug_move_speed = 2;
 
@@ -21,7 +23,10 @@ direction_correction_radius = 200;
 knight_effect_layer = layer_create(-500, "knight_effects");
 ps_layer = part_system_create_layer(knight_effect_layer, false);
 
-randomise();
+knight_drunk_effect_interval_min = 4;
+knight_drunk_effect_interval_max = 8;
+knight_drunk_effect_next = function() { return random_range(knight_drunk_effect_interval_min, knight_drunk_effect_interval_max) * GAMESPEED_FPS; }
+alarm_set(1, knight_drunk_effect_next() );
 
 function random_dir_choose() {
 	var _dir_center = point_direction(x, y, room_mid_x(), room_mid_y());

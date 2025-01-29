@@ -28,13 +28,13 @@ if(obj_knight.knight_state == KNIGHT_STATE.CHARGE){
 	obj_screen_shake.screen_shake_add(0.05);
 	
 	with(obj_knight){
-	hit_count++;
+		hit_count++;
 	
-	if(hit_count % charge_required_hits == 0){
-		// Feather ignore once GM2016
-		knight_precharge();
+		if(hit_count % charge_required_hits == 0){
+			// Feather ignore once GM2016
+			knight_precharge();
+		}
 	}
-}
 }
 
 
