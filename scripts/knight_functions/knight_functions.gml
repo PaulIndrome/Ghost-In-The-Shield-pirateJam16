@@ -30,6 +30,7 @@ function knight_precharge(){
 		alarm_set(0, charge_duration_s * game_get_speed(gamespeed_fps));
 	}));
 	
+	part_particles_burst(part_sys, x, y, ps_knight_precharge);
 	//part_system_position(ps_precharge, x, y);
 	//part_emitter_burst(ps_precharge, 0, ps_type_precharge_a, 64);
 	//part_emitter_burst(ps_precharge, 1, ps_type_precharge_b, 64);
