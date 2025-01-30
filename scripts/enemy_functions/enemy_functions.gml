@@ -92,7 +92,7 @@ function enemy_attack(_killing_blow){
 	sprite_update();
 	image_index = 0;
 	speed = 0;
-	depth -= 100;
+	layer_add_instance("Killer", id);
 	
 	switch(direction_quadrant()){
 		case QUADRANT.RIGHT:

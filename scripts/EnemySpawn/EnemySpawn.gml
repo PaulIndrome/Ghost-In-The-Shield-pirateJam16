@@ -3,7 +3,7 @@ function spawn_enemy(_obj){
 	var _random_dir = choose(random_range(-60, 60), random_range(120, 240));
 	var _x_offset = lengthdir_x(room_width * 0.5, _random_dir);
 	var _y_offset = lengthdir_y(room_height, _random_dir);
-
+	
 	instance_create_layer(room_mid_x() + _x_offset, room_mid_y() + _y_offset, "Instances", _obj);
 }
 
@@ -60,7 +60,7 @@ function EnemyFlood(_waves) constructor {
 	}
 	
 	static add_enemy = function(_obj, _count, _wave, _interval){
-		show_debug_message($"adding {_count}x {object_get_name(_obj)} to wave {_wave}");
+		//show_debug_message($"adding {_count}x {object_get_name(_obj)} to wave {_wave}");
 		if(_wave >= array_length(waves)) exit;
 		
 		_wave = waves[@ _wave];

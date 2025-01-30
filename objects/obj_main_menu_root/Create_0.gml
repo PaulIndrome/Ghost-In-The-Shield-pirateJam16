@@ -1,5 +1,5 @@
-var _room_center_x = room_width / 2;
-var _first_button_y = (room_height / 1.5);
+var _room_center_x = 160;
+var _first_button_y = (room_height / 2);
 
 root_buttons[0] = instance_create_layer(_room_center_x, _first_button_y, "Instances", obj_button_base);
 //root_buttons[1] = instance_create_layer(_room_center_x, _first_button_y, "Instances", obj_button_base);
@@ -43,7 +43,7 @@ function toggle_buttons(_visible, _indeces){
 }
 
 with(root_buttons[@ 0]){
-    button_text = "Play";
+    button_text = "play";
 	button_index_x = 0;
 	button_index_y = 0;
 	

@@ -20,3 +20,5 @@ y = lerp(y, _knight_y + lengthdir_y(_len, _dir), _lerp_speed);
 
 image_angle -= angle_difference(image_angle, _dir) * _lerp_speed * 2;
 direction = _dir;
+
+//part_bonk_play(x, y, image_angle);

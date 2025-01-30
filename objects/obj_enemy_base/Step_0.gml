@@ -1,4 +1,4 @@
-depth = -bbox_bottom;
+//depth = -(sprite_get_bbox_bottom(sprite_index) - sprite_get_yoffset(sprite_index) + y) + room_height;
 
 switch (enemy_state) {
 	case ENEMY_STATE.WALK:

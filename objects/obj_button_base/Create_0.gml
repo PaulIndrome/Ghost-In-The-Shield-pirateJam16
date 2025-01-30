@@ -6,6 +6,8 @@ function button_on_click_default(){
 	sfx_play_simple(squeaky_rubber_toy_cartoon_03, 0.5);
 }
 
+fnt_main_menu = fnt_harrington;
+
 button_stalled = false;
 
 button_state = BUTTON_STATE.NORMAL;

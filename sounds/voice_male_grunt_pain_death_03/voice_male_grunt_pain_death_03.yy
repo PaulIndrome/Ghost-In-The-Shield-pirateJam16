@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"voice_male_grunt_pain_death_03",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":1.410979,
+  "name":"voice_male_grunt_pain_death_03",
+  "parent":{
+    "name":"death",
+    "path":"folders/Sounds/Knight/death.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"voice_male_grunt_pain_death_03.wav",
+  "type":0,
+  "volume":1.0,
+}

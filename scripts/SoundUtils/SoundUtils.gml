@@ -1,6 +1,6 @@
 ///@param {Array<Asset.GMSound>, Asset.GMSound} _sound
 ///@param {real} _gain
-function sfx_play_simple(_sound, _gain = 1){
+function sfx_play_simple(_sound, _gain = 1, _pitch_offset = 0){
 	if(is_array(_sound)){
 		_sound = _sound[@ irandom(array_length(_sound) - 1)];
 	}
@@ -12,6 +12,6 @@ function sfx_play_simple(_sound, _gain = 1){
 		false,
 		_gain,
 		0,
-		_pitch
+		_pitch + _pitch_offset
 	);
 }

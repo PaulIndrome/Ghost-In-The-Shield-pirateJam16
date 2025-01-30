@@ -14,6 +14,8 @@ if(knight_state == KNIGHT_STATE.LURCH){
 		0, // offset
 		random_range(0.8, 1.1) // pitch
 	);
+	
+	part_knight_play(ps_hiccups, x, y);
 
 	alarm_set(1, knight_drunk_effect_next() );
 }

@@ -20,8 +20,8 @@ random_speed_fluctuate_time_source = -1;
 
 direction_correction_radius = 200;
 
-knight_effect_layer = layer_create(-500, "knight_effects");
-ps_layer = part_system_create_layer(knight_effect_layer, false);
+ps_layer = layer_create(-500, "knight_effects");
+part_sys = part_system_create_layer(ps_layer, false);
 
 knight_drunk_effect_interval_min = 4;
 knight_drunk_effect_interval_max = 8;
@@ -78,3 +78,9 @@ function get_fluctuation(_fluct_speed = 1){
 	var _fluct = sin_between(-1, 1, get_timer_s() * _fluct_speed);
     return _fluct;
 }
+	
+///@self obj_knight
+function part_knight_play(_ps, x, y){
+	part_particles_burst(part_sys, 0, 0, _ps);
+}
+

@@ -24,11 +24,11 @@ function knight_precharge(){
 	}
 
 	call_later(1, time_source_units_seconds, method(id, function(){
-		obj_shield.image_blend = c_orange;
+		obj_shield.sprite_index = spr_shield_spikes;
 		knight_state = KNIGHT_STATE.CHARGE; 
 		alarm_set(1, -1);
 		alarm_set(0, charge_duration_s * game_get_speed(gamespeed_fps));
 	}));
 	
-	part_particles_burst(ps_layer, x, y, ps_knight_precharge);
+	part_knight_play(ps_knight_precharge, x, y);
 }

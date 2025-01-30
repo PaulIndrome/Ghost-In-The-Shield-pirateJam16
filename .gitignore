@@ -58,3 +58,4 @@ Temporary Items
 *.resource_order
 *.old
 [Bb]uilds/
+dev_material/

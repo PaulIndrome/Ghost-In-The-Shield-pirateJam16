@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"retro_impact_hit_24",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":0.372653,
+  "name":"retro_impact_hit_24",
+  "parent":{
+    "name":"death",
+    "path":"folders/Sounds/enemies/death.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"retro_impact_hit_24.wav",
+  "type":0,
+  "volume":0.3,
+}

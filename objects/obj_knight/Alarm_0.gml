@@ -13,5 +13,5 @@ if(knight_state == KNIGHT_STATE.CHARGE && (_num_enemies_remaining < _hits_remain
 }
 
 knight_state = KNIGHT_STATE.LURCH;
-obj_shield.image_blend = c_white;
+obj_shield.sprite_index = spr_shield_normal;
 alarm_set(1, knight_drunk_effect_next() );

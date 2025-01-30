@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":1.486077,
+  "duration":0.441995,
   "name":"snd_metal_punch_b",
   "parent":{
     "name":"Shield",
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"snd_metal_punch_b.wav",
   "type":0,
-  "volume":0.2,
+  "volume":0.3,
 }
