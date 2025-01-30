@@ -5,8 +5,8 @@ shield_distance_curve = animcurve_get_channel(ac_shield_distance_curve, 0);
 
 dist_factor = 0;
 
-ps_layer = layer_create(-600, "shield_effects");
-part_sys = part_system_create_layer(ps_layer, false);
+//ps_layer = layer_create(-600, "shield_effects");
+//part_sys = part_system_create_layer(ps_layer, false);
 
 window_set_cursor(cr_none);
 

@@ -19,6 +19,8 @@
   "height":32,
   "HTile":false,
   "layers":[
+    {"$GMImageLayer":"","%Name":"11a00e43-815a-4f60-8d50-ab8ed84b6319","blendMode":0,"displayName":"Layer 2","isLocked":false,"name":"11a00e43-815a-4f60-8d50-ab8ed84b6319","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"01a860c9-a98d-4391-8ed2-085cdebb4494","blendMode":0,"displayName":"Layer 3","isLocked":false,"name":"01a860c9-a98d-4391-8ed2-085cdebb4494","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":false,},
     {"$GMImageLayer":"","%Name":"3b9ad4b2-1541-4c93-9b54-78a89c9f1572","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"3b9ad4b2-1541-4c93-9b54-78a89c9f1572","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_knight",
