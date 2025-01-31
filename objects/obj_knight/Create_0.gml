@@ -4,6 +4,8 @@ knight_state = KNIGHT_STATE.LURCH;
 knight_debug_move_speed = 2;
 
 charge_duration_s = 10;
+initial_charge_done = false;
+charge_required_hits_initial = 10;
 charge_required_hits = 20;
 charge_end_enemy_num_min = 5;
 hit_count = 0;
@@ -20,9 +22,23 @@ random_speed_fluctuate_time_source = -1;
 
 direction_correction_radius = 200;
 
-ps_layer = layer_create(-500, "knight_effects");
-part_sys = part_system_create_layer(ps_layer, false);
-//ps_precharge = create_precharge_ps();
+ps_layer_knight = layer_create(-500, "knight_effects");
+part_sys_knight = part_system_create_layer(ps_layer_knight, false);
+
+ps_emit_precharge_1 = undefined;
+ps_emit_precharge_2 = undefined;
+ps_type_precharge_a = undefined;
+ps_type_precharge_b = undefined;
+ps_precharge = create_precharge_ps();
+
+ps_emit_hiccup_1 = undefined;
+ps_emit_hiccup_2 = undefined;
+ps_emit_hiccup_3 = undefined;
+ps_type_hiccup_a = undefined;
+ps_type_hiccup_b = undefined;
+ps_type_hiccup_c = undefined;
+ps_hiccuping = create_hiccups_ps();
+
 
 knight_drunk_effect_interval_min = 4;
 knight_drunk_effect_interval_max = 8;
@@ -82,56 +98,145 @@ function get_fluctuation(_fluct_speed = 1){
 	
 ///@self obj_knight
 function part_knight_play(_ps, x, y){
-	part_particles_burst(part_sys, 0, 0, _ps);
+	part_particles_burst(part_sys_knight, 0, 0, _ps);
 }
 
-//function create_precharge_ps(){
-//	//ps_knight_precharge
-//	var _ps = part_system_create();
-//	part_system_draw_order(_ps, true);
+function create_precharge_ps(){
+	//ps_knight_precharge
+	var _ps = part_system_create();
+	part_system_draw_order(_ps, true);
 
-//	//sub
-//	var _ptype1 = part_type_create();
-//	part_type_shape(_ptype1, pt_shape_spark);
-//	part_type_size(_ptype1, 0.1, 0.25, 0, 0);
-//	part_type_scale(_ptype1, 1, 1);
-//	part_type_speed(_ptype1, 0.5, 1, 0, 0);
-//	part_type_direction(_ptype1, 0, 360, 0, 0);
-//	part_type_gravity(_ptype1, 0, 270);
-//	part_type_orientation(_ptype1, 0, 360, 0, 0, true);
-//	part_type_colour3(_ptype1, $FFFFFF, $FFFFFF, $FFFFFF);
-//	part_type_alpha3(_ptype1, 1, 1, 1);
-//	part_type_blend(_ptype1, false);
-//	part_type_life(_ptype1, 20, 80);
+	//sub
+	var _ptype1 = part_type_create();
+	part_type_shape(_ptype1, pt_shape_spark);
+	part_type_size(_ptype1, 0.1, 0.25, 0, 0);
+	part_type_scale(_ptype1, 1, 1);
+	part_type_speed(_ptype1, 0.5, 1, 0, 0);
+	part_type_direction(_ptype1, 0, 360, 0, 0);
+	part_type_gravity(_ptype1, 0, 270);
+	part_type_orientation(_ptype1, 0, 360, 0, 0, true);
+	part_type_colour3(_ptype1, $FFFFFF, $FFFFFF, $FFFFFF);
+	part_type_alpha3(_ptype1, 1, 1, 1);
+	part_type_blend(_ptype1, false);
+	part_type_life(_ptype1, 20, 80);
 	
-//	ps_type_precharge_a = _ptype1;
+	ps_type_precharge_a = _ptype1;
 
-//	var _pemit1 = part_emitter_create(_ps);
-//	part_emitter_region(_ps, _pemit1, 0, 0, 0, 0, ps_shape_ellipse, ps_distr_invgaussian);
-//	part_emitter_burst(_ps, _pemit1, _ptype1, 64);
-//	part_emitter_delay(_ps, _pemit1, 0.1, 0.2, time_source_units_seconds)
+	var _pemit1 = part_emitter_create(_ps);
+	part_emitter_region(_ps, _pemit1, 0, 0, 0, 0, ps_shape_ellipse, ps_distr_invgaussian);
+	//part_emitter_burst(_ps, _pemit1, _ptype1, 64);
+	part_emitter_delay(_ps, _pemit1, 0.1, 0.2, time_source_units_seconds)
 
-//	//Emitter
-//	var _ptype2 = part_type_create();
-//	part_type_shape(_ptype2, pt_shape_cloud);
-//	part_type_size(_ptype2, 0.5, 1, 0, 0);
-//	part_type_scale(_ptype2, 1, 1);
-//	part_type_speed(_ptype2, 3, 6, 0, 0);
-//	part_type_direction(_ptype2, 0, 360, 0, 0);
-//	part_type_gravity(_ptype2, 0, 270);
-//	part_type_orientation(_ptype2, 0, 360, 0, 0, true);
-//	part_type_colour3(_ptype2, $123960, $304860, $477CB2);
-//	part_type_alpha3(_ptype2, 1, 1, 1);
-//	part_type_blend(_ptype2, false);
-//	part_type_life(_ptype2, 10, 40);
+	//Emitter
+	var _ptype2 = part_type_create();
+	part_type_shape(_ptype2, pt_shape_cloud);
+	part_type_size(_ptype2, 0.5, 1, 0, 0);
+	part_type_scale(_ptype2, 1, 1);
+	part_type_speed(_ptype2, 3, 6, 0, 0);
+	part_type_direction(_ptype2, 0, 360, 0, 0);
+	part_type_gravity(_ptype2, 0, 270);
+	part_type_orientation(_ptype2, 0, 360, 0, 0, true);
+	part_type_colour3(_ptype2, $123960, $304860, $477CB2);
+	part_type_alpha3(_ptype2, 1, 1, 1);
+	part_type_blend(_ptype2, false);
+	part_type_life(_ptype2, 10, 40);
 	
-//	ps_type_precharge_b = _ptype2;
+	ps_type_precharge_b = _ptype2;
 
-//	var _pemit2 = part_emitter_create(_ps);
-//	part_emitter_region(_ps, _pemit2, 0, 0, 0, 0, ps_shape_ellipse, ps_distr_invgaussian);
-//	part_emitter_burst(_ps, _pemit2, _ptype2, 96);
+	var _pemit2 = part_emitter_create(_ps);
+	part_emitter_region(_ps, _pemit2, 0, 0, 0, 0, ps_shape_ellipse, ps_distr_invgaussian);
+	//part_emitter_burst(_ps, _pemit2, _ptype2, 96);
 
-//	part_system_position(_ps, room_width/2, room_height/2);
+	part_system_position(_ps, room_width/2, room_height/2);
 	
-//	return _ps;
-//}
+	ps_emit_precharge_1 = _pemit1;
+	ps_emit_precharge_2 = _pemit2;
+	
+	return _ps;
+}
+
+function create_hiccups_ps(){
+	//ps_hiccups
+	var _ps = part_system_create();
+	part_system_draw_order(_ps, true);
+
+	//Emitter_c
+	var _ptype1 = part_type_create();
+	part_type_shape(_ptype1, pt_shape_circle);
+	part_type_size(_ptype1, 0.1, 0.2, 0, 0);
+	part_type_scale(_ptype1, 0.5, 0.5);
+	part_type_speed(_ptype1, 0.1, 2, 0, 0);
+	part_type_direction(_ptype1, 45, 135, 0, 45);
+	part_type_gravity(_ptype1, 0.05, 90);
+	part_type_orientation(_ptype1, 350, 0, 0, 0, false);
+	part_type_colour3(_ptype1, $FFFFFF, $FFFFFF, $FFFFFF);
+	part_type_alpha3(_ptype1, 1, 1, 1);
+	part_type_blend(_ptype1, false);
+	part_type_life(_ptype1, 20, 60);
+	var _ptype2 = part_type_create();
+	part_type_shape(_ptype2, pt_shape_ring);
+	part_type_size(_ptype2, 0.5, 1.5, 0.1, 0);
+	part_type_scale(_ptype2, 0.1, 0.1);
+	part_type_speed(_ptype2, 0, 0, 0, 0);
+	part_type_direction(_ptype2, 80, 100, 0, 0);
+	part_type_gravity(_ptype2, 0, 270);
+	part_type_orientation(_ptype2, 0, 0, 0, 0, false);
+	part_type_colour3(_ptype2, $FFFFFF, $FFFFFF, $FFFFFF);
+	part_type_alpha3(_ptype2, 0, 1, 0);
+	part_type_blend(_ptype2, false);
+	part_type_life(_ptype2, 5, 10);
+	part_type_death(_ptype1, 1, _ptype2);
+
+	var _pemit1 = part_emitter_create(_ps);
+	part_emitter_region(_ps, _pemit1, -4, 4, -4, 4, ps_shape_ellipse, ps_distr_linear);
+	//part_emitter_burst(_ps, _pemit1, _ptype1, 5);
+
+	//Emitter_b
+	var _ptype3 = part_type_create();
+	part_type_shape(_ptype3, pt_shape_circle);
+	part_type_size(_ptype3, 0.1, 0.2, 0, 0);
+	part_type_scale(_ptype3, 1, 1);
+	part_type_speed(_ptype3, 0.1, 2, 0, 0);
+	part_type_direction(_ptype3, 45, 135, 0, 45);
+	part_type_gravity(_ptype3, 0.05, 90);
+	part_type_orientation(_ptype3, 350, 0, 0, 0, false);
+	part_type_colour3(_ptype3, $FFFFFF, $FFFFFF, $FFFFFF);
+	part_type_alpha3(_ptype3, 1, 1, 1);
+	part_type_blend(_ptype3, false);
+	part_type_life(_ptype3, 20, 100);
+	part_type_death(_ptype3, 1, _ptype2);
+
+	var _pemit2 = part_emitter_create(_ps);
+	part_emitter_region(_ps, _pemit2, -4, 4, -4, 4, ps_shape_ellipse, ps_distr_linear);
+	//part_emitter_burst(_ps, _pemit2, _ptype3, 2);
+
+	//Emitter_a
+	var _ptype4 = part_type_create();
+	part_type_shape(_ptype4, pt_shape_circle);
+	part_type_size(_ptype4, 0.05, 0.3, 0, 0);
+	part_type_scale(_ptype4, 1, 1);
+	part_type_speed(_ptype4, 0.1, 2, 0, 0);
+	part_type_direction(_ptype4, 45, 135, 0, 45);
+	part_type_gravity(_ptype4, 0.05, 90);
+	part_type_orientation(_ptype4, 350, 300, 0, 0, false);
+	part_type_colour3(_ptype4, $FFFFFF, $FFFFFF, $FFFFFF);
+	part_type_alpha3(_ptype4, 1, 1, 1);
+	part_type_blend(_ptype4, false);
+	part_type_life(_ptype4, 40, 80);
+	part_type_death(_ptype4, 1, _ptype2);
+
+	var _pemit3 = part_emitter_create(_ps);
+	part_emitter_region(_ps, _pemit3, -4, 4, -4, 4, ps_shape_ellipse, ps_distr_linear);
+	//part_emitter_burst(_ps, _pemit3, _ptype4, 1);
+
+	part_system_position(_ps, room_width/2, room_height/2);
+
+	ps_type_hiccup_a = _ptype1;
+	ps_type_hiccup_b = _ptype3;
+	ps_type_hiccup_c = _ptype4;
+	ps_emit_hiccup_1 = _pemit1;
+	ps_emit_hiccup_2 = _pemit2;
+	ps_emit_hiccup_3 = _pemit3;
+
+	return _ps;
+}

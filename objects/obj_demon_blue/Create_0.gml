@@ -1,3 +1,3 @@
 event_inherited();
 
-image_blend = c_aqua;
+image_blend = 16776980;

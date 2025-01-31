@@ -15,7 +15,10 @@ if(knight_state == KNIGHT_STATE.LURCH){
 		random_range(0.8, 1.1) // pitch
 	);
 	
-	part_particles_burst(part_sys, x, y, ps_hiccups);
+	part_system_position(ps_hiccuping, x, y);
+	part_emitter_burst(ps_hiccuping, ps_emit_hiccup_1, ps_type_hiccup_a, 5);
+	part_emitter_burst(ps_hiccuping, ps_emit_hiccup_2, ps_type_hiccup_b, 2);
+	part_emitter_burst(ps_hiccuping, ps_emit_hiccup_3, ps_type_hiccup_c, 1);
 
 	alarm_set(1, knight_drunk_effect_next() );
 }
