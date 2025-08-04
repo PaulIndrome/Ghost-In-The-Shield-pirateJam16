@@ -1,5 +1,5 @@
 {
-  "$GMSequence":"",
+  "$GMSequence":"v1",
   "%Name":"sq_knight_precharge",
   "autoRecord":true,
   "backdropHeight":768,
