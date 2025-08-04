@@ -1,2 +1,2 @@
 ///@desc state precharge
-knight_precharge();
+//knight_precharge();
