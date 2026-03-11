@@ -39,7 +39,6 @@ ps_type_hiccup_b = undefined;
 ps_type_hiccup_c = undefined;
 ps_hiccuping = create_hiccups_ps();
 
-
 knight_drunk_effect_interval_min = 4;
 knight_drunk_effect_interval_max = 8;
 knight_drunk_effect_next = function() { return random_range(knight_drunk_effect_interval_min, knight_drunk_effect_interval_max) * GAMESPEED_FPS; }

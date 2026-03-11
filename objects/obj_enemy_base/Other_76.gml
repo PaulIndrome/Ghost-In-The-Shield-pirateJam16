@@ -1,4 +1,4 @@
-if(event_data[? "event_type"] == "sprite event" && event_data[? "message"] == "hit"){
+if(BROADCAST_TYPE == "sprite event" && BROADCAST_MESSAGE == "hit" && BROADCAST_ID_MATCH){
 	if(obj_audio.played_death_grunt == false){
 		obj_audio.played_death_grunt = true;
 		call_later(0.5, time_source_units_seconds, function(){ 

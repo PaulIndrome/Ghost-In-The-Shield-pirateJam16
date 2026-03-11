@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"InstanceUtils",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"InstanceUtils",
+  "parent":{
+    "name":"utils",
+    "path":"folders/Scripts/utils.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

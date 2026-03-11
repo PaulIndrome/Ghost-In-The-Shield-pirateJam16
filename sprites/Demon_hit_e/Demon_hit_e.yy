@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"Demon_hit_e",
   "bboxMode":0,
   "bbox_bottom":23,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"de63e135-c3c2-4d24-9788-ea28f65dfc80","name":"de63e135-c3c2-4d24-9788-ea28f65dfc80","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"a71dfe1a-1345-4d9f-90fa-7a797e2d9ff3","name":"a71dfe1a-1345-4d9f-90fa-7a797e2d9ff3","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"de63e135-c3c2-4d24-9788-ea28f65dfc80","name":"de63e135-c3c2-4d24-9788-ea28f65dfc80","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"a71dfe1a-1345-4d9f-90fa-7a797e2d9ff3","name":"a71dfe1a-1345-4d9f-90fa-7a797e2d9ff3","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"kick_soft_jab_impact_02",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":0,
   "compression":0,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":0.436896,
+  "exportDir":"",
   "name":"kick_soft_jab_impact_02",
   "parent":{
     "name":"enemies",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"kick_soft_jab_impact_02.wav",
-  "type":0,
   "volume":0.1,
 }
