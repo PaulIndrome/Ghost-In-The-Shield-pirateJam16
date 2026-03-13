@@ -10,6 +10,8 @@ charge_required_hits = 20;
 charge_end_enemy_num_min = 5;
 hit_count = 0;
 kill_count = 0;
+experience_current = 0;
+experience_max = 100;
 
 random_dir_target = 0;
 random_dir_change_interval = 1;
@@ -42,6 +44,8 @@ ps_hiccuping = create_hiccups_ps();
 knight_drunk_effect_interval_min = 4;
 knight_drunk_effect_interval_max = 8;
 knight_drunk_effect_next = function() { return random_range(knight_drunk_effect_interval_min, knight_drunk_effect_interval_max) * GAMESPEED_FPS; }
+
+flexpanel_node_style_set_width(obj_game_ui.fp_xp_fill_amount, 0.5, flexpanel_unit.percent);
 alarm_set(1, knight_drunk_effect_next() );
 
 function random_dir_choose() {
@@ -238,4 +242,18 @@ function create_hiccups_ps(){
 	ps_emit_hiccup_3 = _pemit3;
 
 	return _ps;
+}
+
+add_xp = function(_add){
+	experience_current += _add;
+	
+	var _percent = experience_current / experience_max;
+	flexpanel_node_style_set_width(obj_game_ui.fp_xp_fill_amount, _percent * 100, flexpanel_unit.percent);
+	
+	if(_percent >= 1){
+		// level up
+		
+		// at the end of level up flow
+		flexpanel_node_style_set_width(obj_game_ui.fp_xp_fill_amount, 0.5, flexpanel_unit.percent);
+	}
 }

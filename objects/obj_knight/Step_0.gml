@@ -19,5 +19,3 @@ switch(knight_state){
 		y += _ud * knight_debug_move_speed;
 	break;
 }
-
-flexpanel_node_style_set_width(obj_game_ui.fp_xp_fill_amount, frac(current_time / 10000) * 100, flexpanel_unit.percent);

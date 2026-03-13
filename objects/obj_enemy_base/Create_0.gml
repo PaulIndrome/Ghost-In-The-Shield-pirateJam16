@@ -15,7 +15,28 @@ shove_end_x = 0;
 shove_end_y = 0;
 shove_count = 0;
 
+xp_on_kill = 10;
+
 last_quadrant = direction_quadrant();
+
+kill_pos_x = -1;
+kill_pos_y = -1;
+
+kill_knight_coyote_timer = undefined;
+kill_knight = function(){
+	if(instance_exists(obj_knight) == false) exit;
+		
+	switch(enemy_state){
+		case ENEMY_STATE.BUMPED:
+		case ENEMY_STATE.DYING:
+		case ENEMY_STATE.DEAD:
+		case ENEMY_STATE.SHOVED:
+			exit;
+	}
+	
+	enemy_state = ENEMY_STATE.ATTACK;
+	enemy_attack(obj_knight.knight_state != KNIGHT_STATE.DEAD);	
+};
 
 sprite_update = function(){
 	sprite_index = global.sprite_sets[? object_index][@ enemy_state][last_quadrant];
@@ -33,5 +54,3 @@ quadrant_update = function(){
 
 sprite_update();
 enemy_reset_speed();
-
-

@@ -8,14 +8,18 @@ if(obj_knight.knight_state == KNIGHT_STATE.CHARGE){
 	part_system_color(part_sys_shield, other.image_blend, 1);
 	part_shield_play(_ps_kill, x, y, _dir);
 	
+	var _xp = other.xp_on_kill;
+	
 	with(obj_knight){
 		kill_count++;
+		add_xp(_xp);
 	}
 	
 } else {
     switch(other.enemy_state){
 	    case ENEMY_STATE.WALK:
 	    case ENEMY_STATE.IDLE:
+	    case ENEMY_STATE.ATTACK:
 			break;
 		case ENEMY_STATE.BUMPED:
 		case ENEMY_STATE.SHOVED:

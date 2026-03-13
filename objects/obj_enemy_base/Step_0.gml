@@ -23,4 +23,3 @@ switch (enemy_state) {
         // code here
         break;
 }
-

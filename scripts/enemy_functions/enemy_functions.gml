@@ -94,22 +94,24 @@ function enemy_attack(_killing_blow){
 	speed = 0;
 	layer_add_instance("Killer", id);
 	
-	switch(direction_quadrant()){
-		case QUADRANT.RIGHT:
-			x = obj_knight.x - sprite_width / 2;
-			y = obj_knight.y;
-			break;
-		case QUADRANT.TOP:
-			x = obj_knight.x;
-			y = obj_knight.y + sprite_height / 2;
-			break;
-		case QUADRANT.LEFT:
-			x = obj_knight.x + sprite_width / 2;
-			y = obj_knight.y;
-			break;
-		case QUADRANT.BOTTOM:
-			x = obj_knight.x;
-			y = obj_knight.y - sprite_height / 2;
-			break;
-	}
+	image_angle = point_direction(kill_pos_x, kill_pos_y, obj_knight.x, obj_knight.y);
+	
+	//switch(direction_quadrant()){
+		//case QUADRANT.RIGHT:
+			//x = obj_knight.x - sprite_width / 2;
+			//y = obj_knight.y;
+			//break;
+		//case QUADRANT.TOP:
+			//x = obj_knight.x;
+			//y = obj_knight.y + sprite_height / 2;
+			//break;
+		//case QUADRANT.LEFT:
+			//x = obj_knight.x + sprite_width / 2;
+			//y = obj_knight.y;
+			//break;
+		//case QUADRANT.BOTTOM:
+			//x = obj_knight.x;
+			//y = obj_knight.y - sprite_height / 2;
+			//break;
+	//}
 }

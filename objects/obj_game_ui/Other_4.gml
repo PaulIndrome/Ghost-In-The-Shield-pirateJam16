@@ -1,0 +1,1 @@
+layer_set_visible(uil_xp_bar, room == rm_game);
