@@ -84,6 +84,8 @@
     {"id":{"name":"rm_game","path":"rooms/rm_game/rm_game.yy",},},
     {"id":{"name":"rm_main_menu","path":"rooms/rm_main_menu/rm_main_menu.yy",},},
     {"id":{"name":"RoomUI","path":"roomui/RoomUI/RoomUI.yy",},},
+    {"id":{"name":"__get_current_frame","path":"scripts/__get_current_frame/__get_current_frame.yy",},},
+    {"id":{"name":"Attribute","path":"scripts/Attribute/Attribute.yy",},},
     {"id":{"name":"BUTTON_ENUMS","path":"scripts/BUTTON_ENUMS/BUTTON_ENUMS.yy",},},
     {"id":{"name":"enemy_floods_definitions","path":"scripts/enemy_floods_definitions/enemy_floods_definitions.yy",},},
     {"id":{"name":"enemy_functions","path":"scripts/enemy_functions/enemy_functions.yy",},},

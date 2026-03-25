@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"__get_current_frame",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"__get_current_frame",
+  "parent":{
+    "name":"utils",
+    "path":"folders/Scripts/utils.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
