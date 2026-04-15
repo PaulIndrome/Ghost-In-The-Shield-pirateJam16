@@ -4,17 +4,79 @@ enum MOD_OP {
 	SET,
 }
 
+enum MOD_CHANNEL {
+	DIFFICULTY,
+	UPGRADES,
+	EFFECTS,
+	OVERRIDES
+}
+
+///@ignore
+function __create_modifier_channels_array(){
+	var _arr = [];
+	
+	_arr[MOD_CHANNEL.DIFFICULTY] 	= 		new ModifierChannel("difficulty");
+	_arr[MOD_CHANNEL.UPGRADES] 		= 		new ModifierChannel("upgrades");
+	_arr[MOD_CHANNEL.EFFECTS] 		= 		new ModifierChannel("effects");
+	_arr[MOD_CHANNEL.OVERRIDES] 	= 		new ModifierChannel("difficulty");
+	
+	return _arr;
+}
+
 function Attribute(_name, _base_value) constructor{
 
 	name = _name;
 	attribute_base = _base_value;
 	attribute_current = attribute_base;
 	
-	channels = []; // modifiers
+	channels = __create_modifier_channels_array();
 	
-	static get = function(){}
+	last_update_frame = -1;
 	
-	static add_modifier = function(){}
+	static get = function(){
+		if(FRAME_COUNT == last_update_frame) return attribute_current;
+			
+		///@param {real} _prev result of previous modifier channel
+		/// @param {Struct.ModifierChannel} _next next modifier channel to apply to the last result
+		static reduce_func = function(_prev, _next){
+			return _next.channel_modify(_prev);
+		}
+		
+		attribute_current = array_reduce(channels, reduce_func, attribute_base);
+		
+		return attribute_current;
+	}
+	
+	///@param {Struct.ModifierBase} _modifier
+	///@param {Constant.MOD_CHANNEL} _mod_channel
+	static add_modifier = function(_modifier, _mod_channel){
+		channels[_mod_channel].add_modifier(_modifier);
+	}
+	
+	///@param {Struct.ModifierBase} _modifier
+	///@param {Constant.MOD_CHANNEL} _mod_channel
+	static remove_modifier = function(_modifier, _mod_channel){
+		channels[_mod_channel].remove_modifier(_modifier);
+	}
+	
+	///@param {Struct.ModifierBase} _modifier
+	static remove_modifier_anywhere = function(_modifier){
+		static holder = { modifier : undefined }
+		holder.modifier = _modifier;
+		
+		array_foreach(channels, method(holder, function(_mod_channel){
+			_mod_channel.remove_modifier(modifier);
+		}));
+	}
+	
+	static remove_modifier_name = function(_name){
+		static holder = { name : undefined }
+		holder.name = _name;
+		
+		array_foreach(channels, method(holder, function(_mod_channel){
+			_mod_channel.remove_modifier_name(name);
+		}));
+	}
 	
 }
 
@@ -73,6 +135,32 @@ function ModifierChannel(_name) constructor {
 		return true;
 	}
 	
+	static remove_modifier_name = function(_name){
+		for(var _i = array_length(modifiers_add) - 1; _i > -1; _i--){
+			if(modifiers_add[_i].name != _name) continue;
+				
+			array_delete(modifiers_add, _i, 1); 
+		}
+		
+		update_modifier_result(MOD_OP.ADD);
+		
+		for(var _i = array_length(modifiers_mult) - 1; _i > -1; _i--){
+			if(modifiers_mult[_i].name != _name) continue;
+				
+			array_delete(modifiers_mult, _i, 1); 
+		}
+		
+		update_modifier_result(MOD_OP.MULT);
+		
+		for(var _i = array_length(modifiers_set) - 1; _i > -1; _i--){
+			if(modifiers_set[_i].name != _name) continue;
+				
+			array_delete(modifiers_set, _i, 1); 
+		}
+		
+		update_modifier_result(MOD_OP.SET);
+	}
+	
 	///@ignore
 	static __get_op_array = function(_op){
 		gml_pragma("forceinline");
@@ -93,17 +181,15 @@ function ModifierChannel(_name) constructor {
 		var _init = undefined;
 		switch(_op){
 			case MOD_OP.ADD:
-				_init = array_contains
-				modifier_result_add =  ? array_reduce(modifiers_add, method(self, function(_prev, _next){ 
-					return _prev + _next.modifier_current; 
-				}), array_first(modifiers_add).modifier_current) : _init;
+				_init = 0;
+				modifier_result_add = array_length(modifiers_add) > 0 ? array_reduce(modifiers_add, method(self, function(_prev, _next){ return _prev + _next.modifier_current; }), array_first(modifiers_add).modifier_current) : _init;
 				break;
 			case MOD_OP.MULT:
 				_init = 1.0;
-				modifier_result_mult = array_length(modifiers_mult) > 0 ? array_reduce(modifiers_mult, function(_prev, _next){ return _prev + (_next.modifier_current - 1.0); }, array_first(modifiers_mult) - 1.0) + 1.0 : _init;
+				modifier_result_mult = array_length(modifiers_mult) > 0 ? array_reduce(modifiers_mult, function(_prev, _next){ return _prev + (_next.modifier_current - 1.0); }, array_first(modifiers_mult).modifier_current - 1.0) + 1.0 : _init;
 				break;
 			case MOD_OP.SET:
-				modifier_result_set = array_length(modifiers_set) > 0 ? array_reduce(modifiers_set, function(_prev, _next){ return max(_prev.modifier_current, _next.modifier_current); }) : _init;
+				modifier_result_set = array_length(modifiers_set) > 0 ? array_reduce(modifiers_set, function(_prev, _next){ return max(_prev, _next.modifier_current); }, array_first(modifiers_set).modifier_current) : _init;
 				break;
 		}
 	}
