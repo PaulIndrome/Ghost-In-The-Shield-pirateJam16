@@ -18,7 +18,7 @@ function __create_modifier_channels_array(){
 	_arr[MOD_CHANNEL.DIFFICULTY] 	= 		new ModifierChannel("difficulty");
 	_arr[MOD_CHANNEL.UPGRADES] 		= 		new ModifierChannel("upgrades");
 	_arr[MOD_CHANNEL.EFFECTS] 		= 		new ModifierChannel("effects");
-	_arr[MOD_CHANNEL.OVERRIDES] 	= 		new ModifierChannel("difficulty");
+	_arr[MOD_CHANNEL.OVERRIDES] 	= 		new ModifierChannel("overrides");
 	
 	return _arr;
 }
@@ -34,16 +34,6 @@ function Attribute(_name, _base_value) constructor{
 	last_update_frame = -1;
 	
 	static get = function(){
-		if(FRAME_COUNT == last_update_frame) return attribute_current;
-			
-		///@param {real} _prev result of previous modifier channel
-		/// @param {Struct.ModifierChannel} _next next modifier channel to apply to the last result
-		static reduce_func = function(_prev, _next){
-			return _next.channel_modify(_prev);
-		}
-		
-		attribute_current = array_reduce(channels, reduce_func, attribute_base);
-		
 		return attribute_current;
 	}
 	
@@ -51,12 +41,14 @@ function Attribute(_name, _base_value) constructor{
 	///@param {Constant.MOD_CHANNEL} _mod_channel
 	static add_modifier = function(_modifier, _mod_channel){
 		channels[_mod_channel].add_modifier(_modifier);
+		__update();
 	}
 	
 	///@param {Struct.ModifierBase} _modifier
 	///@param {Constant.MOD_CHANNEL} _mod_channel
 	static remove_modifier = function(_modifier, _mod_channel){
 		channels[_mod_channel].remove_modifier(_modifier);
+		__update();
 	}
 	
 	///@param {Struct.ModifierBase} _modifier
@@ -67,6 +59,8 @@ function Attribute(_name, _base_value) constructor{
 		array_foreach(channels, method(holder, function(_mod_channel){
 			_mod_channel.remove_modifier(modifier);
 		}));
+		
+		__update();
 	}
 	
 	static remove_modifier_name = function(_name){
@@ -76,8 +70,21 @@ function Attribute(_name, _base_value) constructor{
 		array_foreach(channels, method(holder, function(_mod_channel){
 			_mod_channel.remove_modifier_name(name);
 		}));
+		
+		__update();
 	}
 	
+	///@ignore
+	///@param {real} _prev result of previous modifier channel
+	///@param {Struct.ModifierChannel} _next next modifier channel to apply to the last result
+	static __reduce_func = function(_prev, _next){
+		return _next.channel_modify(_prev);
+	}
+	
+	///@ignore
+	static __update = function(){
+		attribute_current = array_reduce(channels, __reduce_func, attribute_base);
+	}
 }
 
 function ModifierChannel(_name) constructor {
@@ -182,14 +189,15 @@ function ModifierChannel(_name) constructor {
 		switch(_op){
 			case MOD_OP.ADD:
 				_init = 0;
-				modifier_result_add = array_length(modifiers_add) > 0 ? array_reduce(modifiers_add, method(self, function(_prev, _next){ return _prev + _next.modifier_current; }), array_first(modifiers_add).modifier_current) : _init;
+				modifier_result_add = array_length(modifiers_add) > 0 ? array_reduce(modifiers_add, method(self, function(_prev, _next){ return _prev + _next.get(); }), array_first(modifiers_add).get()) : _init;
 				break;
 			case MOD_OP.MULT:
 				_init = 1.0;
-				modifier_result_mult = array_length(modifiers_mult) > 0 ? array_reduce(modifiers_mult, function(_prev, _next){ return _prev + (_next.modifier_current - 1.0); }, array_first(modifiers_mult).modifier_current - 1.0) + 1.0 : _init;
+				modifier_result_mult = array_length(modifiers_mult) > 0 ? array_reduce(modifiers_mult, function(_prev, _next){ return _prev * (_next.get() - 1.0); }, array_first(modifiers_mult).get() - 1.0) + 1.0 : _init;
 				break;
 			case MOD_OP.SET:
-				modifier_result_set = array_length(modifiers_set) > 0 ? array_reduce(modifiers_set, function(_prev, _next){ return max(_prev, _next.modifier_current); }, array_first(modifiers_set).modifier_current) : _init;
+				_init = undefined;
+				modifier_result_set = array_length(modifiers_set) > 0 ? array_reduce(modifiers_set, function(_prev, _next){ return _prev == undefined ? _next.get() : max(_prev, _next.get()); }, array_first(modifiers_set).get()) : _init;
 				break;
 		}
 	}
@@ -206,7 +214,7 @@ function ModifierBase(_name, _base_mod, _operation = MOD_OP.ADD) constructor {
 	}
 }
 
-function ModifierIncrement(_name, _base_mod, _mod_increment, _operation = MOD_OP.ADD) : ModifierBase (_name, _base_mod, _operation){
+function ModifierIncrement(_name, _base_mod, _mod_increment, _operation = MOD_OP.ADD) : ModifierBase (_name, _base_mod, _operation) constructor {
 	
 	is_curve = animcurve_exists(_mod_increment);
 	modifier_increment = _mod_increment;
